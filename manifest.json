@@ -1,0 +1,22 @@
+{
+  "name": "MySmartfren Chrome Extension (unofficially)",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Simple Chrome Extension to checking internet quota balance for Smartren provider",
+  "icons": {
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
+  },
+  "permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon-19.png",
+      "38": "images/icon-38.png"
+    },
+    "default_title": "my smartfren",
+    "default_popup": "popup.html"
+  }
+}
