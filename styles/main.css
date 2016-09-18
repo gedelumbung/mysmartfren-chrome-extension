@@ -136,12 +136,16 @@ body {
   color: #222; }
 table{
     width: 100%;
+    border-spacing: 0px;
 }
 tbody{
     width: 100%;
 }
 th, td{
-    padding: 5px;
+    padding: 0px;
+    font-weight: bold;
 }
+tr:nth-child(odd) {background: #eee}
+tr:nth-child(even) {background: #fff}
 
 h6{font-size: 11px;}
