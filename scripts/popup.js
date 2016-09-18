@@ -1,6 +1,21 @@
 $(document).ready(function(){
     $("#loading").show();
     $("#content").hide();
+    $("#configError").hide();
+    var storage = chrome.storage.sync;
+
+    storage.get(["mysmartfren"], function(items){
+        if(items.mysmartfren){
+            var data = items.mysmartfren;
+            $("#imsi").val(data.imsi);
+            $("#token").val(data.token);
+            $("#smartfren").submit();
+        }
+        else{
+            $("#configError").show();
+        }
+    });
+
     $("#smartfren").submit( function () {    
         $.post(
             'https://my.smartfren.com/api/device/profile.php',
@@ -21,5 +36,4 @@ $(document).ready(function(){
         );
         return false;   
     });
-    $("#smartfren").submit();
 });

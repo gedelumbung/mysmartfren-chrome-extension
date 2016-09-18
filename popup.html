@@ -6,15 +6,16 @@
     <link href="styles/main.css" rel="stylesheet">
   </head>
   <body>
-    <form name="smartfren" id="smartfren" method="POST" style="display:none;">
-        <input type="hidden" name="imsi" value="510098851752468">
-        <input type="hidden" name="token" value="9b14bf930a1100bba8c629a219e5784b">
-        <input type="hidden" name="device_type" value="">
-        <input type="hidden" name="sw_version" value="">
-        <input type="hidden" name="browser" value="">
+    <form name="smartfren" id="smartfren" method="POST" style="display:none">
+        <input type="hide" name="imsi" id="imsi">
+        <input type="hide" name="token" id="token">
+        <input type="hide" name="device_type" value="">
+        <input type="hide" name="sw_version" value="">
+        <input type="hide" name="browser" value="">
     </form>
     <div id="cekTarif" class="tabcontent">
         <h3>My Smartfren (unofficially)</h3>
+        <div id="configError">Sorry, we can't process your request. There is something wrong in configuration.</div>
         <div id="loading" class="loader"></div>
         <div id="content">
             <h5><center>Nomor Info</center></h5>

@@ -9,7 +9,8 @@
   },
   "permissions": [
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "storage"
   ],
   "browser_action": {
     "default_icon": {
@@ -18,5 +19,6 @@
     },
     "default_title": "my smartfren",
     "default_popup": "popup.html"
-  }
+  },
+  "options_page": "options.html"
 }
