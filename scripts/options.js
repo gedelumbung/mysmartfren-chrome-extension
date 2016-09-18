@@ -11,13 +11,20 @@ $(document).ready(function(){
     });
 
 	$("#button").click(function(){
-		var params = {
-			'imsi' : $("#imsi").val(),
-			'token' : $("#token").val(),
+		var imsi = $("#imsi").val();
+		var token = $("#token").val();
+		if(imsi === "" || token === ""){
+			$("#message").html("Please fill all field.");
 		}
-	    storage.set({'mysmartfren': params}, function() {
-	      console.log('Settings saved');
-	    });
+		else{
+			var params = {
+				'imsi' : $("#imsi").val(),
+				'token' : $("#token").val(),
+			}
+		    storage.set({'mysmartfren': params}, function() {
+		      $("#message").html("Success save your configuration.");
+		    });
+		}
 
 	});
 });
