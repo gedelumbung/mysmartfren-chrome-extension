@@ -13,7 +13,7 @@ $(document).ready(function(){
 		var imsi = $("#imsi").val();
 		var token = $("#token").val();
 		if(imsi === "" || token === ""){
-			$("#message").html("Please fill all field.");
+			$("#message").html("Please fill all fields.");
 		}
 		else{
 			var params = {
@@ -21,7 +21,7 @@ $(document).ready(function(){
 				'token' : $("#token").val(),
 			}
 			storage.set({'mysmartfren': params}, function() {
-				("#message").html("Success save your configuration.");
+				$("#message").html("Success save your configuration.");
 			});
 		}
 	});
