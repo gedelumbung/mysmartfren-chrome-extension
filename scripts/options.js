@@ -51,13 +51,14 @@ $(document).ready(function(){
 		$("#title").val(value.title);
 		$("#imsi").val(value.imsi);
 		$("#token").val(value.token);
+		$("#default").val(value.default);
 	});
 
 	$("#saveButton").click(function(){
 		var title = $("#title").val();
 		var imsi = $("#imsi").val();
 		var token = $("#token").val();
-		if(imsi === "" || token === ""){
+		if(title === "" || imsi === "" || token === ""){
 			$("#message").html("Please fill all fields.");
 		}
 		else{
@@ -65,6 +66,7 @@ $(document).ready(function(){
 				'title' : $("#title").val(),
 				'imsi' : $("#imsi").val(),
 				'token' : $("#token").val(),
+				'default' : $("#default").val(),
 			};
 			storage.set({'mysmartfren': data}, function() {
 				$("#message").html("Success save your configuration.");
@@ -77,7 +79,7 @@ $(document).ready(function(){
 		var title = $("#title").val();
 		var imsi = $("#imsi").val();
 		var token = $("#token").val();
-		if(imsi === "" || token === ""){
+		if(title === "" || imsi === "" || token === ""){
 			$("#message").html("Please fill all fields.");
 		}
 		else{
@@ -85,6 +87,7 @@ $(document).ready(function(){
 				'title' : $("#title").val(),
 				'imsi' : $("#imsi").val(),
 				'token' : $("#token").val(),
+				'default' : $("#default").val(),
 			};
 			data.push(params);
 			storage.set({'mysmartfren': data}, function() {

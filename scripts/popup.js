@@ -4,18 +4,35 @@ $(document).ready(function(){
     $("#configError").hide();
     var storage = chrome.storage.sync;
 
-    storage.get(["mysmartfren"], function(items){
-        if(items.mysmartfren){
-            var data = items.mysmartfren;
-            $("#imsi").val(data.imsi);
-            $("#token").val(data.token);
-            $("#smartfren").submit();
-        }
-        else{
-            $("#configError").show();
-            $("#loading").hide();
-        }
-    });
+    function load(){
+        storage.get(["mysmartfren"], function(items){
+            if(items.mysmartfren){
+                data = items.mysmartfren;
+                $('#configurationList').html('');
+                $('#configurationList').append($('<option>', { 
+                    value: '',
+                    text : '- Select Configuration -'
+                }));
+
+                $.each(data, function (i, value) {
+                    if(value.default){
+                        $("#imsi").val(value.imsi);
+                        $("#token").val(value.token);
+                        $("#smartfren").submit();
+                    }
+
+                    $('#configurationList').append($('<option>', { 
+                        value: i,
+                        text : value.title 
+                    }));
+                });
+            }
+            else{
+                $("#configError").show();
+                $("#loading").hide();
+            }
+        });
+    }
 
     $("#smartfren").submit( function () {    
         $.post(
@@ -48,4 +65,6 @@ $(document).ready(function(){
         });
         return false;   
     });
+
+    load();
 });
