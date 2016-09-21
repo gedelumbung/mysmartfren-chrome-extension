@@ -3,6 +3,8 @@ $(document).ready(function(){
     $("#content").hide();
     $("#configError").hide();
     var storage = chrome.storage.sync;
+    var data;
+    var index;
 
     function load(){
         storage.get(["mysmartfren"], function(items){
@@ -15,7 +17,7 @@ $(document).ready(function(){
                 }));
 
                 $.each(data, function (i, value) {
-                    if(value.default){
+                    if(value.default === 'true'){
                         $("#imsi").val(value.imsi);
                         $("#token").val(value.token);
                         $("#smartfren").submit();
@@ -34,7 +36,10 @@ $(document).ready(function(){
         });
     }
 
-    $("#smartfren").submit( function () {    
+    $("#smartfren").submit(function(){
+        $("#configError").hide();
+        $("#content").hide();
+        $("#loading").show();
         $.post(
             'https://my.smartfren.com/api/device/profile.php',
             $(this).serialize(),
@@ -64,6 +69,18 @@ $(document).ready(function(){
             $("#loading").hide();
         });
         return false;   
+    });
+
+    $("#configurationList").change(function(){
+        if(this.value === ""){
+            return false;
+        }
+
+        index = this.value;
+        var value = data[this.value];
+        $("#imsi").val(value.imsi);
+        $("#token").val(value.token);
+        $("#smartfren").submit();
     });
 
     load();
