@@ -71,6 +71,7 @@ $(document).ready(function(){
 			storage.set({'mysmartfren': data}, function() {
 				$("#message").html("Success save your configuration.");
 				load();
+				clearForm();
 			});
 		}
 	});
@@ -93,7 +94,24 @@ $(document).ready(function(){
 			storage.set({'mysmartfren': data}, function() {
 				$("#message").html("Success save your configuration.");
 				load();
+				clearForm();
 			});
 		}
 	});
+
+	$("#removeButton").click(function(){
+		data.splice(index, 1);
+		storage.set({'mysmartfren': data}, function() {
+			$("#message").html("Success delete your configuration.");
+			load();
+			clearForm();
+		});
+	});
+
+	function clearForm(){
+		$("#title").val('');
+		$("#imsi").val('');
+		$("#token").val('');
+		$("#default").val('no');
+	}
 });
