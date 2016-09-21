@@ -54,64 +54,63 @@ $(document).ready(function(){
 		$("#default").val(value.default);
 	});
 
-	$("#saveButton").click(function(){
-		var title = $("#title").val();
-		var imsi = $("#imsi").val();
-		var token = $("#token").val();
-		if(title === "" || imsi === "" || token === ""){
-			$("#message").html("Please fill all fields.");
-		}
-		else{
-			data[index] = {
-				'title' : $("#title").val(),
-				'imsi' : $("#imsi").val(),
-				'token' : $("#token").val(),
-				'default' : $("#default").val(),
-			};
-			storage.set({'mysmartfren': data}, function() {
-				$("#message").html("Success save your configuration.");
-				load();
-				clearForm();
-			});
-		}
-	});
+	$("#addButton").click(saveData('add'));
+	$("#saveButton").click(saveData('edit'));
 
-	$("#addButton").click(function(){
-		var title = $("#title").val();
-		var imsi = $("#imsi").val();
-		var token = $("#token").val();
-		if(title === "" || imsi === "" || token === ""){
-			$("#message").html("Please fill all fields.");
+	function saveData(action){
+		return function(){
+			var title = $("#title").val();
+			var imsi = $("#imsi").val();
+			var token = $("#token").val();
+			if(title === "" || imsi === "" || token === ""){
+				$("#message").html("Please fill all fields.");
+			}
+			else{
+				if(action === 'add'){
+					var params = {
+						'title' : $("#title").val(),
+						'imsi' : $("#imsi").val(),
+						'token' : $("#token").val(),
+						'default' : $("#default").val(),
+					};
+					data.push(params);
+				}
+				else if(action === 'edit'){
+					data[index] = {
+						'title' : $("#title").val(),
+						'imsi' : $("#imsi").val(),
+						'token' : $("#token").val(),
+						'default' : $("#default").val(),
+					};
+				}
+
+				storage.set({'mysmartfren': data}, function() {
+					$("#message").html("Success save your configuration.");
+					load();
+					reset();
+				});
+			}
 		}
-		else{
-			var params = {
-				'title' : $("#title").val(),
-				'imsi' : $("#imsi").val(),
-				'token' : $("#token").val(),
-				'default' : $("#default").val(),
-			};
-			data.push(params);
-			storage.set({'mysmartfren': data}, function() {
-				$("#message").html("Success save your configuration.");
-				load();
-				clearForm();
-			});
-		}
-	});
+	}
 
 	$("#removeButton").click(function(){
 		data.splice(index, 1);
 		storage.set({'mysmartfren': data}, function() {
 			$("#message").html("Success delete your configuration.");
 			load();
-			clearForm();
+			reset();
 		});
 	});
 
-	function clearForm(){
+	function reset(){
 		$("#title").val('');
 		$("#imsi").val('');
 		$("#token").val('');
-		$("#default").val('no');
+		$("#default").val('false');
+
+		$("#saveButton").hide();
+		$("#removeButton").hide();
+		$("#addButton").show();
+		action = 'add';
 	}
 });
