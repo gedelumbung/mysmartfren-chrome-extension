@@ -2,25 +2,32 @@ $(document).ready(function(){
     $("#loading").show();
     $("#content").hide();
     $("#configError").hide();
+    $("#noDefault").hide();
     var storage = chrome.storage.sync;
     var data;
     var index;
 
     function load(){
         storage.get(["mysmartfren"], function(items){
+            $('#configurationList').html('');
+            $('#configurationList').append($('<option>', { 
+                value: '',
+                text : '- Select Configuration -'
+            }));
+            
             if(items.mysmartfren){
                 data = items.mysmartfren;
-                $('#configurationList').html('');
-                $('#configurationList').append($('<option>', { 
-                    value: '',
-                    text : '- Select Configuration -'
-                }));
 
                 $.each(data, function (i, value) {
                     if(value.default === 'true'){
                         $("#imsi").val(value.imsi);
                         $("#token").val(value.token);
                         $("#smartfren").submit();
+                        $("#noDefault").hide();
+                    }
+                    else{
+                        $("#noDefault").show();
+                        $("#loading").hide();
                     }
 
                     $('#configurationList').append($('<option>', { 
@@ -61,11 +68,13 @@ $(document).ready(function(){
                     $("#loading").hide();
                     $("#content").hide();
                     $("#configError").show();
+                    $("#noDefault").hide();
                 }
             }
         )
         .fail(function(){
             $("#configError").show();
+            $("#noDefault").hide();
             $("#loading").hide();
         });
         return false;   
