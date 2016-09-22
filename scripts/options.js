@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var storage = chrome.storage.sync;
-	var data;
+	var data = [];
 	var action = 'add';
 	var index;
 
@@ -12,13 +12,14 @@ $(document).ready(function(){
 
 	function load(){
 		storage.get(["mysmartfren"], function(items){
+			$('#configurationList').html('');
+			$('#configurationList').append($('<option>', { 
+		        value: '',
+		        text : '- Select Configuration -'
+		    }));
+
 			if(items.mysmartfren){
 				data = items.mysmartfren;
-				$('#configurationList').html('');
-				$('#configurationList').append($('<option>', { 
-			        value: '',
-			        text : '- Select Configuration -'
-			    }));
 
 			    $.each(data, function (i, value) {
 				    $('#configurationList').append($('<option>', { 
